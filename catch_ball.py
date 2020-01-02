@@ -3,14 +3,6 @@ from random import randrange as rnd, choice
 import math as math
 import time
 
-root = tk.Tk()
-root.geometry('800x600')
-
-canv = tk.Canvas(root, bg='white')
-canv.pack(fill='both', expand=1)
-
-colors = ['red', 'orange', 'yellow', 'green', 'blue']
-
 
 def new_ball():
     """
@@ -18,13 +10,13 @@ def new_ball():
     """
     global x, y, r
     canv.delete('all')
+
     x = rnd(100, 700)
     y = rnd(100, 500)
     r = rnd(30, 50)
     canv.create_oval(x - r, y - r, x + r, y + r,
-                    fill = choice(colors), width=0)
+                    fill=choice(colors), width=0)
     root.after(1000, new_ball)
-
 
 def click(event):
     """
@@ -40,7 +32,20 @@ def click(event):
     else:
         print('Miss shot')
 
-score = 0
-new_ball()
-canv.bind('<Button-1>', click)
-root.mainloop()
+def main():
+    global root, canv
+    global score, colors
+    root = tk.Tk()
+    root.geometry('800x600')
+
+    canv = tk.Canvas(root, bg='white')
+    canv.pack(fill='both', expand=1)
+
+    colors = ['red', 'orange', 'yellow', 'green', 'blue']
+    score = 0
+    new_ball()
+    canv.bind('<Button-1>', click)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
